@@ -18,17 +18,17 @@ module Arvsmongo
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     
-    # config.autoload_paths += %W("#{Rails.root}/mongoid/01-place_city_country")
-    # config.autoload_paths += %W("#{Rails.root}/mongoid/02-place_category")
-    # config.autoload_paths += %W("#{Rails.root}/mongoid/03-place_user_review")
-    # config.autoload_paths += %W("#{Rails.root}/mongoid/04-reviews_comments")
-    # config.autoload_paths += %W("#{Rails.root}/mongoid/05-moderator")
-
-    config.autoload_paths += %W("#{Rails.root}/active_record/01-place_city_country")
-    # config.autoload_paths += %W("#{Rails.root}/active_record/02-place_category")
-    # config.autoload_paths += %W("#{Rails.root}/active_record/03-place_user_review")
-    # config.autoload_paths += %W("#{Rails.root}/active_record/04-review_comments")
-    # config.autoload_paths += %W("#{Rails.root}/active_record/05-moderator")
+    # config.autoload_paths += %W(#{config.root}/app/mongoid/place_city_country)
+    # config.autoload_paths += %W(#{config.root}/app/mongoid/place_category)
+    # config.autoload_paths += %W(#{config.root}/app/mongoid/place_user_review)
+    # config.autoload_paths += %W(#{config.root}/app/mongoid/place_review_comments)
+    # config.autoload_paths += %W(#{config.root}/app/mongoid/place_review_moderator)
+    
+    config.autoload_paths += %W(#{config.root}/app/active_record/place_city_country)
+    # config.autoload_paths += %W(#{config.root}/app/active_record/place_category)
+    # config.autoload_paths += %W(#{config.root}/app/active_record/place_user_review)
+    # config.autoload_paths += %W(#{config.root}/app/active_record/place_review_comments)
+    # config.autoload_paths += %W(#{config.root}/app/active_record/place_review_moderator)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

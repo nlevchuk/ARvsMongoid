@@ -32,8 +32,6 @@ ActiveRecord::Schema.define(:version => 20120606055539) do
   end
 
   create_table "places", :force => true do |t|
-    t.string  "address"
-    t.integer "city_id"
+    t.string "address"
   end
-
 end

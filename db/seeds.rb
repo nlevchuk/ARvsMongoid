@@ -5,10 +5,17 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-200000.times do
-  place = Place.create(:name => 'Place' + Faker::Lorem.words(2).join(' '))
-end
 
-200000.times do
+
+50.times do
   category = Category.create(:name => 'Category' + Faker::Lorem.words(2).join(' '))
 end
+
+Place.all.each do |place|
+  categories_count = rand(5)
+  categories_count.times do
+    random_category = Category.find(rand(49)+1)
+    place.categories <<  random_category unless place.category_ids.include?(random_category.id)
+  end
+end
+

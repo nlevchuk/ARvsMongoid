@@ -1,8 +1,8 @@
 class CreatePlaces < ActiveRecord::Migration
   def up
     create_table :places do |t|
-      t.string :name
       t.string :address
+      t.integer :city_id
     end
   end
 

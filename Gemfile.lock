@@ -29,9 +29,9 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     arel (3.0.2)
-    bson (1.6.2)
-    bson_ext (1.6.2)
-      bson (~> 1.6.2)
+    bson (1.6.3)
+    bson_ext (1.6.3)
+      bson (~> 1.6.3)
     builder (3.0.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -128,6 +128,7 @@ DEPENDENCIES
   debugger
   faker
   jquery-rails
+  mongo (= 1.6.2)
   mongoid (~> 2.4)
   pg
   populator

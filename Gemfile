@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.3'
 
 gem 'pg'
+gem 'mongo', '1.6.2'
 gem 'mongoid', '~> 2.4'
 gem 'bson_ext', '~> 1.5'
 
@@ -12,6 +13,7 @@ group :development do
   gem 'debugger'
   gem 'populator'
   gem 'faker'
+  # gem 'ffaker'
 end
 
 group :assets do

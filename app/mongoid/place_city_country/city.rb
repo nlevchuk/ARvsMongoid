@@ -1,6 +1,6 @@
 class City
   include Mongoid::Document
-  field :title
+  field :name
 
   has_many :places
   belongs_to :country

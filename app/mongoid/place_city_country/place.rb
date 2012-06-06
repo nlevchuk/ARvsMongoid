@@ -1,6 +1,6 @@
 class Place
   include Mongoid::Document
-  field :title
+  field :address
 
   belongs_to :cities
 end

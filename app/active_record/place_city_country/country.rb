@@ -1,4 +1,6 @@
 # encoding: utf-8
 class Country < ActiveRecord::Base
-  :has_many cities
+  attr_accessible :name
+
+  has_many :cities
 end

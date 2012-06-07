@@ -1,10 +1,11 @@
 require File.expand_path('../boot', __FILE__)
 
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "active_resource/railtie"
-require "sprockets/railtie"
+require 'rails/all'
+# require "active_record/railtie"
+# require "action_controller/railtie"
+# require "action_mailer/railtie"
+# require "active_resource/railtie"
+# require "sprockets/railtie"
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -15,6 +16,8 @@ end
 
 module Arvsmongo
   class Application < Rails::Application
+
+    config.mongoid.logger = Logger.new($stdout, :all)
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -25,13 +28,13 @@ module Arvsmongo
     # config.autoload_paths += %W(#{config.root}/app/mongoid/place_city_country)
     # config.autoload_paths += %W(#{config.root}/app/mongoid/place_category)
     # config.autoload_paths += %W(#{config.root}/app/mongoid/place_user_review)
-    # config.autoload_paths += %W(#{config.root}/app/mongoid/place_review_comments)
+    # config.autoload_paths += %W(#{config.root}/app/mongoid/review_comment_user)
     # config.autoload_paths += %W(#{config.root}/app/mongoid/place_review_moderator)
     
-    config.autoload_paths += %W(#{config.root}/app/active_record/place_city_country)
+    # config.autoload_paths += %W(#{config.root}/app/active_record/place_city_country)
     # config.autoload_paths += %W(#{config.root}/app/active_record/place_category)
     # config.autoload_paths += %W(#{config.root}/app/active_record/place_user_review)
-    # config.autoload_paths += %W(#{config.root}/app/active_record/place_review_comments)
+    config.autoload_paths += %W(#{config.root}/app/active_record/review_comment_user)
     # config.autoload_paths += %W(#{config.root}/app/active_record/place_review_moderator)
 
     # Only load the plugins named here, in the order given (default is alphabetical).

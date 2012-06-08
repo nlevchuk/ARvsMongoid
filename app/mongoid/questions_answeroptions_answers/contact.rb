@@ -1,7 +1,8 @@
 # encoding: utf-8
-class Question
+class Contact
   include Mongoid::Document
-  field :title
-  field :answer
+  field :type
+  field :value
+  field :note
   embedded_in :place
 end

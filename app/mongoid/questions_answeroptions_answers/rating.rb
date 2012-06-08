@@ -1,7 +1,7 @@
 # encoding: utf-8
-class Question
+class Rating
   include Mongoid::Document
-  field :title
-  field :answer
+  field :type
+  field :value, :type => Integer
   embedded_in :place
 end

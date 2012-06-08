@@ -1,7 +1,7 @@
 # encoding: utf-8
-class Question
+class Comment
   include Mongoid::Document
-  field :title
-  field :answer
+  field :text
+  field :user
   embedded_in :place
 end

@@ -1,0 +1,107 @@
+Генерация категорий + связывание их с местами:
+  AR:       1192 sec (~100000 записей в join таблицу)
+  Mongoid:  487 sec (~100000 записей в рандомные места + столько же обновлений соответствующих Категорий)
+  Improved: 203 sec (~100000 записей в рандомные места без обновления записей категорий)
+
+Все категории места:
+  AR:
+    Place.find(random_place_id).categories
+  SQL:
+    SELECT "categories".* FROM "categories" INNER JOIN "categories_places" ON "categories"."id" = "categories_places"."category_id" WHERE "categories_places"."place_id" = 943
+  Mongoid:
+    Place.find(random_place_id).categories
+  Mongo:
+    MONGODB (0ms) arvsmongo_development['places'].find({:_id=>BSON::ObjectId('4fd057d0b4c75c2791000003')}).limit(-1).sort([[:_id, :asc]])
+    MONGODB (0ms) arvsmongo_development['categories'].find({:_id=>{"$in"=>[BSON::ObjectId('4fd062e2b4c75c2a7c000007'), BSON::ObjectId('4fd062e2b4c75c2a7c0000a0'), BSON::ObjectId('4fd062e2b4c75c2a7c000066'), BSON::ObjectId('4fd062e2b4c75c2a7c000087'), BSON::ObjectId('4fd062e2b4c75c2a7c00001a')]}})
+
+Все места в категории:
+  AR:
+    Category.find(155).places
+  SQL:
+    SELECT "places".* FROM "places" INNER JOIN "categories_places" ON "places"."id" = "categories_places"."place_id" WHERE "categories_places"."category_id" = 155
+  Mongoid:
+    Category.find('4fd044fbb4c75c222d43fh83').places
+  Mongo:
+    MONGODB (0ms) arvsmongo_development['categories'].find({:_id=>BSON::ObjectId('4fd062e2b4c75c2a7c0000c8')}).limit(-1).sort([[:_id, :asc]])
+    MONGODB (0ms) arvsmongo_development['places'].find({:_id=>{"$in"=>[]}})
+
+Показать все места в категории X города Y:
+  AR:
+    Place.joins(:categories).where('categories.id = ?', random_category_id) & Place.where(:city_id => random_city_id)
+  SQL:
+    SELECT "places".* FROM "places" INNER JOIN "categories_places" ON "categories_places"."place_id" = "places"."id" INNER JOIN "categories" ON "categories"."id" = "categories_places"."category_id" WHERE (categories.id = 200)
+  Mongoid:
+    Place.where(:category_ids => Category.first.id, :city_id => City.first.id)
+  Mongo:
+    MONGODB (0ms) arvsmongo_development['categories'].find({:_id=>BSON::ObjectId('4fd062e2b4c75c2a7c0000c8')}).limit(-1).sort([[:_id, :asc]])
+    MONGODB (0ms) arvsmongo_development['cities'].find({:_id=>BSON::ObjectId('4fd057d0b4c75c2791000002')}).limit(-1).sort([[:_id, :asc]])
+    MONGODB (4ms) arvsmongo_development['places'].find({:category_ids=>BSON::ObjectId('4fd062e2b4c75c2a7c0000c8'), :city_id=>BSON::ObjectId('4fd057d0b4c75c2791000002')})
+
+RESULTS:
+  Все категории места:
+    AR:
+      {10  =>  0.060000   0.010000   0.070000 (  0.083312)}
+      {100 =>  0.130000   0.010000   0.140000 (  0.330726)}
+      {200 =>  0.280000   0.020000   0.300000 (  0.689202)}
+      {500 =>  0.730000   0.050000   0.780000 (  1.734326)}
+      {1000=>  1.470000   0.090000   1.560000 (  3.456297)}
+      {2000=>  2.880000   0.180000   3.060000 (  6.879634)}
+      {5000=>  7.260000   0.460000   7.720000 ( 17.430511)
+
+    Mongo:
+      {10  =>  0.000000   0.000000   0.000000 (  0.008528)}
+      {100 =>  0.060000   0.010000   0.070000 (  0.072505)}
+      {200 =>  0.130000   0.020000   0.150000 (  0.172724)}
+      {500 =>  0.300000   0.030000   0.330000 (  0.396401)}
+      {1000=>  0.660000   0.070000   0.730000 (  0.859724)}
+      {2000=>  1.340000   0.140000   1.480000 (  1.734684)}
+      {5000=>  3.260000   0.350000   3.610000 (  4.243568)}
+
+    improved mongo:
+      {10  =>  0.010000   0.000000   0.010000 (  0.008708)}
+      {100 =>  0.060000   0.010000   0.070000 (  0.073749)}
+      {200 =>  0.130000   0.020000   0.150000 (  0.176516)}
+      {500 =>  0.310000   0.030000   0.340000 (  0.406816)}
+      {1000=>  0.650000   0.070000   0.720000 (  0.831891)}
+      {2000=>  1.320000   0.130000   1.450000 (  1.701404)}
+      {5000=>  3.210000   0.340000   3.550000 (  4.139476)}
+
+  Все места в категории:
+    AR:
+      {100 =>  1.670000   0.020000   1.690000 (  4.156637)}
+      {200 =>  3.310000   0.040000   3.350000 (  8.415313)}
+      {500 =>  8.680000   0.100000   8.780000 ( 21.911619)}
+      {1000=> 16.820000   0.190000  17.010000 ( 42.577093)}
+
+    Mongoid:
+      {100 => 28.300000   0.410000  28.710000 ( 29.448526)
+      дальше очень долго, прервал тест
+
+    Improved mongo:
+      undefined method `places' for #<Category:0x007fe8ab035908>
+
+  Все места категории X в городе Y
+    AR:
+      {10=>  1.750000   0.020000   1.770000 (  2.042231)}
+      {100=> 18.020000   0.090000  18.110000 ( 20.977131)}
+      {200=> 35.490000   0.190000  35.680000 ( 41.634577)}
+      {500=> 86.700000   0.460000  87.160000 (101.041937)}
+      {1000=>171.510000   0.900000 172.410000 (200.288971)}
+    Mongoid:
+      {10=>  0.000000   0.000000   0.000000 (  0.018304)}
+      {100=>  0.030000   0.000000   0.030000 (  0.169820)}
+      {200=>  0.100000   0.010000   0.110000 (  0.357873)}
+      {500=>  0.160000   0.020000   0.180000 (  0.811917)}
+      {1000=>  0.380000   0.030000   0.410000 (  1.702263)}
+      {2000=>  0.730000   0.070000   0.800000 (  3.333784)}
+      {5000=>  1.810000   0.170000   1.980000 (  8.379655)} 
+    Improved mongo:
+      {10=>  0.010000   0.000000   0.010000 (  0.017768)}
+      {100=>  0.090000   0.010000   0.100000 (  0.228393)}
+      {200=>  0.130000   0.010000   0.140000 (  0.411813)}
+      {500=>  0.380000   0.040000   0.420000 (  1.101019)}
+      {1000=>  0.670000   0.080000   0.750000 (  2.108086)}
+      {2000=>  1.370000   0.140000   1.510000 (  4.122965)}
+      {5000=>  3.450000   0.370000   3.820000 ( 10.305565)}
+
+

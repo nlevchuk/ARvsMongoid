@@ -74,5 +74,6 @@ module Arvsmongo
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+    # config.mongoid.logger = Logger.new($stdout, :all)
   end
 end

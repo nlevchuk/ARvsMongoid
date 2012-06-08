@@ -1,5 +1,6 @@
-# encoding: utf-8
-class Category
+class Country
   include Mongoid::Document
   field :name
+
+  has_many :cities
 end

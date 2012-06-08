@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120608085939) do
+ActiveRecord::Schema.define(:version => 20120608121143) do
 
   create_table "answer_options", :force => true do |t|
     t.string "title"
@@ -33,6 +33,11 @@ ActiveRecord::Schema.define(:version => 20120608085939) do
 
   add_index "categories_places", ["category_id", "place_id"], :name => "index_categories_and_places", :unique => true
 
+  create_table "category_questions", :force => true do |t|
+    t.integer "category_id"
+    t.integer "question_id"
+  end
+
   create_table "cities", :force => true do |t|
     t.string  "name"
     t.integer "country_id"
@@ -46,6 +51,12 @@ ActiveRecord::Schema.define(:version => 20120608085939) do
 
   create_table "countries", :force => true do |t|
     t.string "name"
+  end
+
+  create_table "place_question_answers", :force => true do |t|
+    t.integer "place_id"
+    t.integer "question_id"
+    t.integer "answer_option_id"
   end
 
   create_table "places", :force => true do |t|

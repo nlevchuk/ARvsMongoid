@@ -5,11 +5,4 @@ class Answer < ActiveRecord::Base
   belongs_to :questions_answer_option
   # belongs_to :question, :through => :questions_answer_option
   # belongs_to :answer_option, :through => :questions_answer_option
-  def question
-    questions_answer_option.question
-  end
-
-  def answer
-    questions_answer_option.answer_option
-  end
 end

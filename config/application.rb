@@ -17,7 +17,7 @@ end
 module Arvsmongo
   class Application < Rails::Application
 
-    config.mongoid.logger = Logger.new($stdout, :all)
+    # config.mongoid.logger = Logger.new($stdout, :all)
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -29,13 +29,13 @@ module Arvsmongo
     # config.autoload_paths += %W(#{config.root}/app/mongoid/place_category)
     # config.autoload_paths += %W(#{config.root}/app/mongoid/place_user_review)
     # config.autoload_paths += %W(#{config.root}/app/mongoid/review_comment_user)
-    # config.autoload_paths += %W(#{config.root}/app/mongoid/place_review_moderator)
+    # config.autoload_paths += %W(#{config.root}/app/mongoid/questions_answeroptions_answers)
     
     # config.autoload_paths += %W(#{config.root}/app/active_record/place_city_country)
     # config.autoload_paths += %W(#{config.root}/app/active_record/place_category)
     # config.autoload_paths += %W(#{config.root}/app/active_record/place_user_review)
-    config.autoload_paths += %W(#{config.root}/app/active_record/review_comment_user)
-    # config.autoload_paths += %W(#{config.root}/app/active_record/place_review_moderator)
+    # config.autoload_paths += %W(#{config.root}/app/active_record/review_comment_user)
+    config.autoload_paths += %W(#{config.root}/app/active_record/questions_answeroptions_answers)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

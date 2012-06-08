@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120607100718) do
+ActiveRecord::Schema.define(:version => 20120608085939) do
+
+  create_table "answer_options", :force => true do |t|
+    t.string "title"
+  end
+
+  create_table "answers", :force => true do |t|
+    t.integer "place_id"
+    t.integer "questions_answer_option_id"
+  end
 
   create_table "categories", :force => true do |t|
     t.string "name"
@@ -44,6 +53,17 @@ ActiveRecord::Schema.define(:version => 20120607100718) do
     t.integer "city_id"
   end
 
+  add_index "places", ["city_id"], :name => "index_city_for_place"
+
+  create_table "questions", :force => true do |t|
+    t.string "title"
+  end
+
+  create_table "questions_answer_options", :force => true do |t|
+    t.integer "question_id"
+    t.integer "answer_option_id"
+  end
+
   create_table "reviews", :force => true do |t|
     t.string  "title"
     t.text    "description"
@@ -54,5 +74,4 @@ ActiveRecord::Schema.define(:version => 20120607100718) do
     t.string "name"
   end
 
-  add_index "places", ["city_id"], :name => "index_city_for_place"
 end

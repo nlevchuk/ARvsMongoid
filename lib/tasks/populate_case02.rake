@@ -19,13 +19,13 @@ namespace :db do
         }]
       
       iterations.each do |iteration|
-        # Place.first(iteration[:records]).each do |place| # AR
-        Place.limit(iteration[:records]).each do |place| # Mongo
+        Place.first(iteration[:records]).each do |place| # AR
+        # Place.limit(iteration[:records]).each do |place| # Mongo
           categories_count = iteration[:categories]
           categories_count.times do
             skip = rand(Category.count)
-            # random_category = Category.first(:offset => skip) # AR
-            random_category = Category.first(:skip => skip) # Mongo
+            random_category = Category.first(:offset => skip) # AR
+            # random_category = Category.first(:skip => skip) # Mongo
             place.categories <<  random_category unless place.category_ids.include?(random_category.id)
           end
         end

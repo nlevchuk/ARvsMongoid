@@ -1,6 +1,6 @@
 class CreateJoinTableForCategoriesAndPlaces < ActiveRecord::Migration
   def self.up
-    create_table :categories_places, :id => false do |t|
+    create_table :categories_places do |t|
       t.integer :place_id
       t.integer :category_id
     end

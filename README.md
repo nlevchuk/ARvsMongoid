@@ -6,3 +6,6 @@ ARvsMongoid
 
 = Create ActiveRecord model:
   rails g active_record:model Categories
+
+= Testing
+  TODO
